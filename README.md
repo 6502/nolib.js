@@ -41,3 +41,13 @@ Example:
        el("span", {textContent: "Child 3",
                   s_cursor: "pointer",
                   onclick: () => alert("Hey")}));
+
+### `drag(event, f)`
+
+Handles mouse dragging by calling the function `f` with
+
+    f(x, y, 0); // Start of dragging
+    f(x, y, 1); // During dragging at each mouse movement
+    f(x, y, 2); // When the mouse is released
+
+`event` is the `onmousedown` event that starts the dragging.
