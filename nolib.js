@@ -17,3 +17,29 @@ function el(ctype, opts, ...children) {
     if (parent) parent.appendChild(d);
     return d;
 }
+
+function drag(event, f) {
+    let glass = el("div",
+                   {parent: document.body,
+                    s_position: "fixed",
+                    s_left: "0px",
+                    s_top: "0px",
+                    s_right: "0px",
+                    s_bottom: "0px"});
+    event.preventDefault();
+    event.stopPropagation();
+    f(event.clientX, event.clientY, 0); // down
+    function mm(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        f(event.clientX, event.clientY, 1); // dragging
+    }
+    function mu(event) {
+        document.body.removeChild(glass);
+        document.removeEventListener("mousemove", mm);
+        document.removeEventListener("mouseup", mu);
+        f(event.clientX, event.clientY, 2); // up
+    }
+    document.addEventListener("mousemove", mm);
+    document.addEventListener("mouseup", mu);
+}
