@@ -51,3 +51,44 @@ Handles mouse dragging by calling the function `f` with
     f(x, y, 2); // When the mouse is released
 
 `event` is the `onmousedown` event that starts the dragging.
+
+### `ext(object, method, extension)`
+
+Extends the specified method on the specific object instance.
+The `extension` function will be called passing as first parameter
+the old value of `object[method]` and remaining parameters as
+received by the caller of the method.
+The return value of `extension` will be the final result of the
+call to the method.
+
+Example:
+
+    class Foo {
+        constructor(x) { this.x = x; }
+        bar(y) { return this.x + y; }
+    };
+
+    foo = new Foo(12);
+    console.log(foo.bar(3)); // Outputs 15
+
+    ext(foo, "bar", (oldm, ...args) => {
+        console.log("Method bar called on foo instance with " + JSON.stringify(args));
+        let res = oldm.call(foo, ...args);
+        console.log("Result was " + JSON.stringify(res));
+        return res;
+    });
+
+    console.log(foo.bar(3)); // Still outputs 15, but displaying log infos
+
+### `extBefore(object, method, extension)`
+
+Extends the specified method by adding a call to `extension` right before
+the execution of the original method code. The result value of the call
+to `extension` is ignored.
+
+### `extAfter(object, method, extension)`
+
+Extends the specified method by adding a call to `extension` right after
+the execution of the original method code. The result value of the call
+to `extension` is the final result: the result value of the original
+method call is ignored.

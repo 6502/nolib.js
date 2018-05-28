@@ -43,3 +43,16 @@ function drag(event, f) {
     document.addEventListener("mousemove", mm);
     document.addEventListener("mouseup", mu);
 }
+
+function ext(obj, m, f) {
+    let oldf = obj[m];
+    obj[m] = (...args) => { return f.call(obj, oldf, ...args); };
+}
+
+function extBefore(obj, m, f) {
+    ext(obj, m, (oldf, ...args) => { f.call(obj, ...args); return oldf.call(obj, ...args); });
+}
+
+function extAfter(obj, m, f) {
+    ext(obj, m, (oldf, ...args) => { oldf.call(obj, ...args); return f.call(obj, ...args); });
+}

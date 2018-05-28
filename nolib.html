@@ -53,6 +53,10 @@ let d = el("div.red", {
     textContent: "Drag me, please"
 });
 
+extBefore(d, "onmousedown", event => {
+    console.log("onmousedown called");
+});
+
     </script>
   </body>
 </html>
