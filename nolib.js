@@ -1,6 +1,6 @@
 function el(ctype, opts, ...children) {
     let [type, ...classes] = ctype.split("."), parent = undefined;
-    let d = document.createElement(type);
+    let d = type[0] === "#" ? document.getElementById(type.slice(1)) : document.createElement(type);
     classes.forEach(c => d.classList.add(c));
     if (opts) {
         Object.keys(opts).forEach(k => {
