@@ -15,8 +15,8 @@ the program, at least for me, harder to read.
 It doesn't try to hide anything important because that would make
 the program, at least for me, harder to understand.
 
-Copying and pasting it instead of including it is and should be a
-reasonable option. That's why it's not really a library.
+Copying and pasting and tweaking it instead of including it is and
+should be a reasonable option. That's why it's not really a library.
 
 This is why it also has no license...
 
